@@ -122,6 +122,60 @@ class ZohoBooks {
     }
 
     /**
+     * Returns all invoice records for a specific contact.
+     *
+     * @param integer of contact id
+     * @return string JSON or null
+     */
+    public function getContactInvoices($contact_id){
+        $params = array(
+            'customer_id'=>$contact_id
+        );
+        $call = $this->callZohoBooks($this->invoicesUrl,null,METHOD_GET,1,$params);
+        if($call->message === 'success'){
+            return $call->invoices;
+        }
+    }
+
+    /**
+     * Returns all invoice records for a specific contact.
+     *
+     * @param integer of contact id
+     * @param string of invoice status
+     * @return string JSON or null
+     */
+    public function getContactInvoicesByStatus($contact_id,$status){
+        $params = array(
+            'customer_id'=>$contact_id,
+            'status'=>$status
+        );
+        $call = $this->callZohoBooks($this->invoicesUrl,null,METHOD_GET,1,$params);
+        if($call->message === 'success'){
+            return $call->invoices;
+        }
+    }
+
+    /**
+     * **********************************
+     * Invoices
+     * **********************************
+     */
+
+    /**
+     * Returns an invoices comments and history
+     *
+     * @param integer of invoice id
+     * @return string JSON or null
+     */
+    public function getInvoiceComments($invoice_id){
+
+        $call = $this->callZohoBooks($this->invoicesUrl.'/'.$invoice_id.'/comments',null,METHOD_GET,1,$params);
+        if($call->message === 'success'){
+            return $call->comments;
+        }
+    }
+
+    /**
      * This function communicates with Zoho Books REST API.
      * You don't need to call this function directly. It's only for inner class working.
      *
@@ -131,9 +185,15 @@ class ZohoBooks {
      * @param int $page equates to page number for paginating
      * @return string JSON or null
      */
-    private function callZohoBooks($url, $data = null, $method = METHOD_GET, $page = 1){
+    private function callZohoBooks($url, $data = null, $method = METHOD_GET, $page = 1, $params = false){
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url.'?authtoken='.$this->apiKey.'&organization_id='.$this->organizationId.'&page='.$page);
+        if($params){
+            $filter = '';
+            foreach($params as $key => $value){
+                $filter = $filter.'&'.$key.'='.$value;
+            }
+        }
+        curl_setopt($curl, CURLOPT_URL, $url.'?authtoken='.$this->apiKey.'&organization_id='.$this->organizationId.'&page='.$page.$filter);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Don't print the result
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->timeout);
         curl_setopt($curl, CURLOPT_TIMEOUT, $this->timeout);
