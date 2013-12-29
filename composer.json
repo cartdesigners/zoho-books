@@ -1,0 +1,26 @@
+{
+  "name": "cartdesigners/zoho-books",
+  "description": "ZohoBooks PHP Library",
+  "keywords": [
+    "zoho",
+    "zoho books",
+    "api"
+  ],
+  "homepage": "https://www.cartdesigners.com.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cart Designers and contributors",
+      "homepage": "https://github.com/cartdesigners"
+    }
+  ],
+  "require": {
+    "php": ">=5.2",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "classmap": ["./"]
+  }
+}
