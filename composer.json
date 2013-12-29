@@ -21,6 +21,6 @@
     "ext-mbstring": "*"
   },
   "autoload": {
-    "classmap": ["./"]
+    "classmap": ["lib/ZohoBooks/"]
   }
 }
