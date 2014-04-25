@@ -19,8 +19,5 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*"
-  },
-  "autoload": {
-    "classmap": ["lib/ZohoBooks/"]
   }
 }
