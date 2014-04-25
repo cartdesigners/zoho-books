@@ -10,5 +10,5 @@ if (!function_exists('json_decode')) {
   throw new Exception('ZohoBooks needs the JSON PHP extension.');
 }
 
-// Stripe singleton
+// Zoho base
 require(dirname(__FILE__) . '/ZohoBooks/ZohoBooks.php');
